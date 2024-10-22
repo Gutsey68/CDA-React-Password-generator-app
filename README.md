@@ -2,8 +2,6 @@
 
 This is a simple password generator application built with React, Tailwind CSS, Zustand for state management, and TypeScript.
 
-Voici les trois liens pour la version de production dans le README :
-
 ## Demo
 
 - [View Live Demo](https://cda-react-password-generator-app.vercel.app/)
