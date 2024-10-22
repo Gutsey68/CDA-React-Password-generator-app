@@ -16,7 +16,6 @@ type Store = {
     symbols: boolean;
     setSymbols: () => void;
 };
-
 const useStrength = create<Store>(set => ({
     difficulty: 'too-week',
     changeDifficulty: () => {
@@ -50,15 +49,29 @@ const useStrength = create<Store>(set => ({
         const symbols = '!@#$%^&*';
 
         let characters = '';
-        if (state.upperCase) characters += upperCase;
-        if (state.lowerCase) characters += lowerCase;
-        if (state.numbers) characters += numbers;
-        if (state.symbols) characters += symbols;
-
         let newPassword = '';
-        for (let i = 0; i < state.characterLength; i++) {
+
+        if (state.upperCase) {
+            characters += upperCase;
+            newPassword += upperCase.charAt(Math.floor(Math.random() * upperCase.length));
+        }
+        if (state.lowerCase) {
+            characters += lowerCase;
+            newPassword += lowerCase.charAt(Math.floor(Math.random() * lowerCase.length));
+        }
+        if (state.numbers) {
+            characters += numbers;
+            newPassword += numbers.charAt(Math.floor(Math.random() * numbers.length));
+        }
+        if (state.symbols) {
+            characters += symbols;
+            newPassword += symbols.charAt(Math.floor(Math.random() * symbols.length));
+        }
+
+        for (let i = newPassword.length; i < state.characterLength; i++) {
             newPassword += characters.charAt(Math.floor(Math.random() * characters.length));
         }
+
         state.changeDifficulty();
         set({ password: newPassword });
     },
