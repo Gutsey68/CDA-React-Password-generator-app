@@ -16,7 +16,7 @@ function PasswordCard() {
     };
 
     return (
-        <div className="m-auto mb-6 flex h-[80px] w-[96%] items-center justify-between bg-black px-8 sm:w-[540px]">
+        <div className="m-auto mb-6 flex h-[80px] w-full items-center justify-between bg-black px-8 sm:w-[540px]">
             <p className="text-sm text-white md:text-2xl">{password}</p>
             <div className="flex items-center gap-4">
                 {textShown && <p className="text-green">COPIED</p>}
