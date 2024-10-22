@@ -16,6 +16,7 @@ type Store = {
     symbols: boolean;
     setSymbols: () => void;
 };
+
 const useStrength = create<Store>(set => ({
     difficulty: 'too-week',
     changeDifficulty: () => {
@@ -27,7 +28,6 @@ const useStrength = create<Store>(set => ({
         if (state.symbols) score += 1;
         if (state.characterLength >= 8) score += 1;
         if (state.characterLength >= 12) score += 1;
-
         let difficulty: 'too-week' | 'week' | 'medium' | 'strong' = 'too-week';
         if (score >= 5) {
             difficulty = 'strong';
@@ -47,30 +47,44 @@ const useStrength = create<Store>(set => ({
         const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
         const symbols = '!@#$%^&*';
-
         let characters = '';
         let newPassword = '';
 
+        const selectedTypes = [];
         if (state.upperCase) {
             characters += upperCase;
-            newPassword += upperCase.charAt(Math.floor(Math.random() * upperCase.length));
+            selectedTypes.push(upperCase);
         }
         if (state.lowerCase) {
             characters += lowerCase;
-            newPassword += lowerCase.charAt(Math.floor(Math.random() * lowerCase.length));
+            selectedTypes.push(lowerCase);
         }
         if (state.numbers) {
             characters += numbers;
-            newPassword += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            selectedTypes.push(numbers);
         }
         if (state.symbols) {
             characters += symbols;
-            newPassword += symbols.charAt(Math.floor(Math.random() * symbols.length));
+            selectedTypes.push(symbols);
         }
 
+        // Ensure at least one character of each selected type
+        if (state.characterLength >= selectedTypes.length) {
+            selectedTypes.forEach(type => {
+                newPassword += type.charAt(Math.floor(Math.random() * type.length));
+            });
+        }
+
+        // Fill the rest of the password length with random characters
         for (let i = newPassword.length; i < state.characterLength; i++) {
             newPassword += characters.charAt(Math.floor(Math.random() * characters.length));
         }
+
+        // Shuffle the password to ensure randomness
+        newPassword = newPassword
+            .split('')
+            .sort(() => 0.5 - Math.random())
+            .join('');
 
         state.changeDifficulty();
         set({ password: newPassword });
