@@ -16,15 +16,15 @@ function PasswordCard() {
     };
 
     return (
-        <div className="mb-6 flex h-[80px] w-[540px] items-center justify-between bg-black px-8">
-            <p className="text-2xl text-white">{password}</p>
+        <div className="m-auto mb-6 flex h-[80px] w-[96%] items-center justify-between bg-black px-8 sm:w-[540px]">
+            <p className="text-sm text-white md:text-2xl">{password}</p>
             <div className="flex items-center gap-4">
                 {textShown && <p className="text-green">COPIED</p>}
                 <Copy
                     onClick={() => {
                         clickHandler(password);
                     }}
-                    className="cursor-pointer text-green hover:text-white"
+                    className="cursor-pointer text-green hover:text-white max-md:size-4"
                 />
             </div>
         </div>

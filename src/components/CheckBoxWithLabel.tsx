@@ -9,7 +9,7 @@ function CheckBoxWithLabel({ text, name, checked, onChange }: CheckBoxWithLabelP
     return (
         <div className="flex w-full cursor-pointer gap-4 text-white">
             <input checked={checked} onChange={onChange} type="checkbox" name={name} id={name} className="cursor-pointer accent-green" />
-            <label className="cursor-pointer" htmlFor={name}>
+            <label className="cursor-pointer max-md:text-xs" htmlFor={name}>
                 {text}
             </label>
         </div>
